@@ -19,9 +19,6 @@ RUN apt-get update && apt-get install -y \
 #
 # Set UP Python
 ENV PATH $PATH:/root/.pyenv/bin
-# RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-# RUN ls /root/.pyenv/bin
-# RUN eval "$(pyenv init -)"
 RUN apt-get update && apt-get install -y \
             gcc make libssl-dev libbz2-dev libreadline-dev libsqlite3-dev zlib1g-dev \
         && apt-get clean \
@@ -36,7 +33,9 @@ RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-instal
         && pyenv install 2.7.14 \
         && pyenv global 2.7.14 3.6.5
 RUN apt-get update && apt-get install -y \
-            graphviz
+            graphviz \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
 RUN eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" \
         && pip install --upgrade pip \
         && pip install awscli
