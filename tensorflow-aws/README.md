@@ -1,5 +1,21 @@
 # TensorFlow on AWS
 
++ AWS 上で AWS のコマンドを利用しながら TensorFlow を実行するためのコンテナ
+
+## インストールされているもの
+
++ Python 2
++ Python 3
++ AWS CLI
+
+
+## Docker コマンド
+
+```
+docker run -it miharu/tensorflow-aws
+```
+
+
 
 
 pyenv

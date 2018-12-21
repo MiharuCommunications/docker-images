@@ -35,12 +35,14 @@ RUN apt-get update \
         \
         && pip3 install --upgrade pip \
         && pip3 install Pillow \
-        && pip3 install --upgrade tensorflow==1.7.0 \
+        && pip3 install --upgrade tensorflow==1.12.0 \
         && pip3 install keras \
         && pip3 install keras-vis \
-        && pip3 install h5py==2.8.0rc1 \
+        \
         && pip3 install jupyter \
         && pip3 install pydot graphviz \
         \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
+
+#        && pip3 install h5py==2.8.0rc1 \
