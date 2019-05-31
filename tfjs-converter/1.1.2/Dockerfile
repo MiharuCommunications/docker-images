@@ -30,7 +30,7 @@ RUN apt-get update \
         && pyenv global 3.6.8 \
         \
         && pip install --upgrade pip \
-        && pip install tensorflowjs \
+        && pip install tensorflowjs==1.1.2 \
         \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
