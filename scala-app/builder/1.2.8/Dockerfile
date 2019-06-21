@@ -61,3 +61,7 @@ RUN set -x \
         && apt-get update \
         && apt-get install -y language-pack-ja \
         && locale-gen ja_JP.UTF-8
+
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
