@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM buildpack-deps:stretch-scm
 
 LABEL  maintainer "Toshiaki Inahata <inahata@miharu.co.jp>"
 
@@ -7,7 +7,7 @@ RUN set -x \
         && apt-get update \
         && apt-get upgrade -y \
         && apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file \
-        && apt-get install -y sudo \
+        && apt-get install -y sudo patch \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/* \
         \
