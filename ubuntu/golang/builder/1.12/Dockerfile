@@ -11,6 +11,14 @@ RUN set -x \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-
 ENV PATH $PATH:/usr/local/go/bin
 ENV GO111MODULE=on
+
+
+RUN set -x \
+        && apt-get update \
+        && apt-get install -y python-pip python-dev \
+        && pip install awscli \
+        \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
