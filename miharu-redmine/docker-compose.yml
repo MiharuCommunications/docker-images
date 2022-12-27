@@ -1,0 +1,84 @@
+version: '2'
+
+services:
+  mysql:
+    image: sameersbn/mysql:5.7.22-1
+    networks:
+      fixed_compose_network:
+    environment:
+    - DB_USER=redmine
+    - DB_PASS=password
+    - DB_NAME=redmine_production
+    volumes:
+    - ./mysql:/var/lib/mysql
+    restart: always
+ 
+
+  redmine:
+    image: sameersbn/redmine:4.2.9
+    depends_on:
+    - mysql
+    networks:
+      fixed_compose_network:
+    environment:
+    - TZ=Asia/Tokyo
+
+    - DB_ADAPTER=mysql2
+    - DB_HOST=mysql
+    - DB_PORT=3306
+    - DB_USER=redmine
+    - DB_PASS=password
+    - DB_NAME=redmine_production
+    - DB_SSL_MODE=preferred
+
+    - REDMINE_PORT=10083
+    - REDMINE_HTTPS=false
+    - REDMINE_RELATIVE_URL_ROOT=/redmine
+    - REDMINE_SECRET_TOKEN=
+
+    - REDMINE_SUDO_MODE_ENABLED=false
+    - REDMINE_SUDO_MODE_TIMEOUT=15
+
+    - REDMINE_CONCURRENT_UPLOADS=2
+
+    - REDMINE_BACKUP_SCHEDULE=weekly
+    - REDMINE_BACKUP_EXPIRY=
+    - REDMINE_BACKUP_TIME=02:00
+
+    - SMTP_ENABLED=true
+    - SMTP_METHOD=smtp
+    - SMTP_DOMAIN=amaebi.miharu.co.jp
+    - SMTP_HOST=10.254.254.1
+    - SMTP_PORT=25
+      #- SMTP_USER=sako@miharu.co.jp
+      #- SMTP_PASS=miharu
+      #- SMTP_STARTTLS=false
+      #- SMTP_AUTHENTICATION=:none
+
+    - IMAP_ENABLED=false
+    - IMAP_HOST=imap.gmail.com
+    - IMAP_PORT=993
+    - IMAP_USER=mailer@example.com
+    - IMAP_PASS=password
+    - IMAP_SSL=true
+    - IMAP_INTERVAL=30
+
+    ports:
+    - "10083:80"
+
+    volumes:
+    - ./data:/home/redmine/data
+    - ./logs:/var/log/redmine
+
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+    restart: always
+
+networks:
+  fixed_compose_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.254.254.0/24
+
